@@ -58,4 +58,4 @@ to make use of hash_subtraction you must first extend the hash instance you wish
 
 
 
-Copyright (c) 2014Kelly Mahan, released under the MIT license
+Copyright (c) 2014 Kelly Mahan, released under the MIT license
