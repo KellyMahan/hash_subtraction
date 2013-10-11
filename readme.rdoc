@@ -1,0 +1,58 @@
+hash_subtraction is a gem that provides methods for different subtractive methods for hashes.
+
+
+== Installation
+
+In your <em>Gemfile</em>:
+
+  gem 'hash_subtraction'
+  
+Then run <code>bundle install</code>.
+
+== Usage
+
+to make use of hash_subtraction you must first extend the hash instance you wish to call the methods on.
+
+
+	myhash = {
+	  a: 'a', 
+	  b: 'b',
+		num: 5,
+		array: [1,2,3]
+	}
+	myhash2 = {
+	  a: 'a', 
+	  b: 'c',
+		num: 10,
+		array: [1,3]
+	}
+	#extend the hash
+	myhash.extend(HashSubtraction)
+	
+	
+	
+	#subtract the hash
+	myhash-myhash2
+	=> {:b=>"b", :num=>-5, :array=>[2]}
+	#arrays and numbers are subtracted, strings are removed if the value is a duplicate. Otherwise it is left alone.
+	
+	
+	#remove duplicate key value pairs
+	myhash.remove_duplicates(myhash2)
+	=> {:b=>"b", :num=>5, :array=>[1, 2, 3]}
+	#only duplicate key and value combinations are removed
+	
+	
+	#remove duplicate keys
+	myhash.remove_duplicate_keys(myhash2)
+	=> {}
+	#all matching keys are removed
+	
+
+There are 3 main methods so far.
+
+
+
+
+
+Copyright (c) 2014Kelly Mahan, released under the MIT license
