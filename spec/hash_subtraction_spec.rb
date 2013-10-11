@@ -81,4 +81,24 @@ describe HashSubtraction do
     
     h3.should == result
   end
+  
+  it "should find the difference between 2 hashes" do
+    @h1.extend(HashSubtraction)
+    h3 = @h1.diff(@h2)
+    
+    result = {
+      a: "a", 
+      arr: [1, 2], 
+      hsh: {
+        b: "b", c: "dee", e: "ello"
+      }, 
+      int: 8, 
+      float: 6.5
+    }
+    
+    h3.should == result
+  end
+  
+  
+  
 end

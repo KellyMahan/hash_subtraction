@@ -15,6 +15,30 @@ module HashSubtraction
     self.deep_remove_duplicate_keys(h).extend(HashSubtraction).compact
   end
   
+  def diff(h)
+    h.extend(HashSubtraction)
+    self.deep_diff(h).extend(HashSubtraction).compact
+  end
+  
+  def compact(opts={})
+    inject({}) do |new_hash, (k,v)|
+      if !v.nil?
+        new_hash[k] = opts[:recurse] && v.class == Hash ? v.compact(opts) : v
+      end
+      new_hash
+    end
+  end
+  
+  def deep_diff(h)
+    self.merge(h) do |k, old, new|
+      old.extend(HashSubtraction) if old.is_a?(Hash)
+      case old
+      when Hash then (new.class == Hash) ? (old.diff(new)) : old
+      else (old != new) ? new : nil
+      end
+    end
+  end
+  
   def deep_subtraction(h)
     self.merge(h) do |k, old, new|
       old.extend(HashSubtraction) if old.is_a?(Hash)
@@ -48,13 +72,5 @@ module HashSubtraction
     end
   end
 
-  def compact(opts={})
-    inject({}) do |new_hash, (k,v)|
-      if !v.nil?
-        new_hash[k] = opts[:recurse] && v.class == Hash ? v.compact(opts) : v
-      end
-      new_hash
-    end
-  end
     
 end
